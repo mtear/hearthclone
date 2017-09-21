@@ -34,13 +34,9 @@ namespace hearthclone_server
             // Data buffer for incoming data.  
             byte[] bytes = new Byte[1024];
 
-            // Establish the local endpoint for the socket.  
-            // The DNS name of the computer  
-            // running the listener is "host.contoso.com".  
             IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
-            ipAddress = IPAddress.Parse("127.0.0.1");
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 1121);
 
             // Create a TCP/IP socket.  
             Socket listener = new Socket(AddressFamily.InterNetwork,

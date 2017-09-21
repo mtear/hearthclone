@@ -1,0 +1,6 @@
+D:\pgram\hearthclone\hearthclone\hearthclone_client\bin\Release\hearthclone_client.exe.config
+D:\pgram\hearthclone\hearthclone\hearthclone_client\bin\Release\hearthclone_client.exe
+D:\pgram\hearthclone\hearthclone\hearthclone_client\bin\Release\hearthclone_client.pdb
+D:\pgram\hearthclone\hearthclone\hearthclone_client\obj\Release\hearthclone_client.csproj.CoreCompileInputs.cache
+D:\pgram\hearthclone\hearthclone\hearthclone_client\obj\Release\hearthclone_client.exe
+D:\pgram\hearthclone\hearthclone\hearthclone_client\obj\Release\hearthclone_client.pdb

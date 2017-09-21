@@ -22,8 +22,10 @@ namespace hearthclone_client
 
     public class AsynchronousClient
     {
+        public static String name = "";
+
         // The port number for the remote device.  
-        private const int port = 11000;
+        private const int port = 1121;
 
         // ManualResetEvent instances signal completion.  
         private static ManualResetEvent connectDone =
@@ -46,7 +48,6 @@ namespace hearthclone_client
                 // remote device is "host.contoso.com".  
                 IPHostEntry ipHostInfo = Dns.Resolve("polybellum.com");
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
-                ipAddress = IPAddress.Parse("127.0.0.1");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
                 // Create a TCP/IP socket.  
@@ -59,7 +60,7 @@ namespace hearthclone_client
                 connectDone.WaitOne();
 
                 // Send test data to the remote device.  
-                Send(client, "This is a test<EOF>");
+                Send(client, "{\"name\":\""+name+"\"}<EOF>");
                 sendDone.WaitOne();
 
                 // Receive the response from the remote device.  
@@ -190,6 +191,12 @@ namespace hearthclone_client
 
         public static int Main(String[] args)
         {
+            while (AsynchronousClient.name.Trim() == "")
+            {
+                Console.WriteLine("Enter your name: ");
+                name = Console.ReadLine();
+            }
+
             StartClient();
             Console.Read();
             return 0;
