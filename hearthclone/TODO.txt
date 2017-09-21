@@ -1,0 +1,26 @@
+﻿Player modifiers
+Cost modification enchanments
+CardInstance -> Hand Card instance
+save memory
+byte for cost and nums
+abstract battlefield max variable
+battlefield instance isn't what it should be. Battlefield will want instances
+combo
+armor
+equipment
+hero
+opening hands instanced
+expansion set field
+core rarity
+card class restrictions
+source of where card created
+creature summoning should spawn from an effect not just inherently do it
+flavor flav
+Hand instance vs play instance / Redo the whole heiarchy of hand objects it's awful
+Player life to health
+
+TODAY:
+make server and client separate programs
+
+ritualist
+desperado, gunslinger, lawmen, tomahawk, Jezebel
