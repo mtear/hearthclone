@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hearthclone_server", "heart
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hearthclone_client", "hearthclone_client\hearthclone_client.csproj", "{358642BA-302C-47E3-8297-06F5BD8FCB3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hearthclone_net", "hearthclone_net\hearthclone_net.csproj", "{9B094D79-07DC-49C2-8D66-2543E2062B11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{358642BA-302C-47E3-8297-06F5BD8FCB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{358642BA-302C-47E3-8297-06F5BD8FCB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{358642BA-302C-47E3-8297-06F5BD8FCB3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B094D79-07DC-49C2-8D66-2543E2062B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B094D79-07DC-49C2-8D66-2543E2062B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B094D79-07DC-49C2-8D66-2543E2062B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B094D79-07DC-49C2-8D66-2543E2062B11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

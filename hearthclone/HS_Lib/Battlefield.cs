@@ -55,7 +55,7 @@ namespace HS_Lib
             {
                 if(defenderIndex == -1)
                 {
-                    targetPlayer.Life -= fromField[attackerIndex].CreatureStats.Power;
+                    //targetPlayer.Life -= fromField[attackerIndex].CreatureStats.Power;
                 }
             }
             if(fromField[attackerIndex].CreatureStats.Health <= 0)

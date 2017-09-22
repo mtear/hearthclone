@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{358642BA-302C-47E3-8297-06F5BD8FCB3D}</ProjectGuid>
+    <ProjectGuid>{9B094D79-07DC-49C2-8D66-2543E2062B11}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>hearthclone_client</RootNamespace>
-    <AssemblyName>hearthclone_client</AssemblyName>
+    <RootNamespace>hearthclone_net</RootNamespace>
+    <AssemblyName>hearthclone_net</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,17 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HS_NetLib\SocketInputBuffer.cs" />
+    <Compile Include="HS_NetLib\SocketInputWorker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HS_NetLib\Request.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\hearthclone_net\hearthclone_net.csproj">
-      <Project>{9b094d79-07dc-49c2-8d66-2543e2062b11}</Project>
-      <Name>hearthclone_net</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

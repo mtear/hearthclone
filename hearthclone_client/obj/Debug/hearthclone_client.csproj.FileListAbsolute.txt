@@ -4,3 +4,7 @@ D:\pgram\hearthclone\hearthclone\hearthclone_client\bin\Debug\hearthclone_client
 D:\pgram\hearthclone\hearthclone\hearthclone_client\obj\Debug\hearthclone_client.csproj.CoreCompileInputs.cache
 D:\pgram\hearthclone\hearthclone\hearthclone_client\obj\Debug\hearthclone_client.exe
 D:\pgram\hearthclone\hearthclone\hearthclone_client\obj\Debug\hearthclone_client.pdb
+D:\pgram\hearthclone\hearthclone\hearthclone_client\obj\Debug\hearthclone_client.csprojResolveAssemblyReference.cache
+D:\pgram\hearthclone\hearthclone\hearthclone_client\bin\Debug\hearthclone_net.exe
+D:\pgram\hearthclone\hearthclone\hearthclone_client\bin\Debug\hearthclone_net.pdb
+D:\pgram\hearthclone\hearthclone\hearthclone_client\bin\Debug\hearthclone_net.exe.config
