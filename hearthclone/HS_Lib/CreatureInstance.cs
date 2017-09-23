@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HS_Lib
 {
-    class HS_CreatureInstance : HS_CardInstance
+    public class HS_CreatureInstance : HS_CardInstance
     {
         private bool canAttack;
         private bool shielded;

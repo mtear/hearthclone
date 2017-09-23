@@ -2,7 +2,7 @@
 
 namespace HS_Lib
 {
-    class HS_CardInstance
+    public class HS_CardInstance
     {
         private List<HS_Enchantment> modifiers;
         private HS_Card baseCard;

@@ -1,6 +1,6 @@
 ﻿namespace HS_Lib
 {
-    class HS_Card
+    public class HS_Card
     {
 
         protected string copy;

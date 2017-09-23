@@ -2,7 +2,7 @@
 
 namespace HS_Lib
 {
-    class HS_CreatureCard : HS_Card
+    public class HS_CreatureCard : HS_Card
     {
         int power;
         public int Power

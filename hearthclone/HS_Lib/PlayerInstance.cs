@@ -1,6 +1,6 @@
 ﻿namespace HS_Lib
 {
-    class HS_PlayerInstance
+    public class HS_PlayerInstance
     {
         private HS_Deck deck;
 

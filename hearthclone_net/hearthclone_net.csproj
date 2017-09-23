@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HS_NetLib\SocketDataWorker.cs" />
     <Compile Include="HS_NetLib\SocketInputBuffer.cs" />
     <Compile Include="HS_NetLib\SocketInputWorker.cs" />
     <Compile Include="Program.cs" />

@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace hearthclone_net
+namespace HS_Net
 {
     [DataContract]
     public class HS_Request

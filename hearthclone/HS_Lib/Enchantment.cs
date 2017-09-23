@@ -1,6 +1,6 @@
 ﻿namespace HS_Lib
 {
-    class HS_Enchantment
+    public class HS_Enchantment
     {
     }
 }

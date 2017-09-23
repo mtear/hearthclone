@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HS_Lib
 {
-    class HS_Game
+    public class HS_Game
     {
 
         private char turnindex = (char)0;

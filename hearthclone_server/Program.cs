@@ -1,15 +1,19 @@
-﻿using hearthclone_net;
+﻿using HS_Net;
 using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
+using System.Collections.Generic;
+using HS_Lib;
 
 namespace hearthclone_server
 {
 
     public class AsynchronousSocketListener
     {
+        private static int connections = 0;
+        private static List<HS_SocketDataWorker> sockets = new List<HS_SocketDataWorker>();
+
         // Thread signal.  
         public static ManualResetEvent allDone = new ManualResetEvent(false);
 
@@ -43,10 +47,12 @@ namespace hearthclone_server
                     allDone.Reset();
 
                     // Start an asynchronous socket to listen for connections.  
-                    listener.BeginAccept(
-                        new AsyncCallback(AcceptCallback),
-                        listener);
-
+                    if (connections < 2)
+                    {
+                        listener.BeginAccept(
+                            new AsyncCallback(AcceptCallback),
+                            listener);
+                    }
                     // Wait until a connection is made before continuing.  
                     allDone.WaitOne();
                 }
@@ -65,6 +71,7 @@ namespace hearthclone_server
         public static void AcceptCallback(IAsyncResult ar)
         {
             Console.WriteLine("New client connected");
+            connections++;
 
             // Signal the main thread to continue.  
             allDone.Set();
@@ -73,37 +80,41 @@ namespace hearthclone_server
             Socket listener = (Socket)ar.AsyncState;
             Socket handler = listener.EndAccept(ar);
 
-            new HS_SocketInputWorker(handler);
+            sockets.Add(new HS_SocketDataWorker(handler));
+
+            if(connections == 1)
+            {
+                Broadcast("You are the first to join the room. Please wait");
+            }
+            else if(connections == 2)
+            {
+                StartGame();
+            }
         }
 
-        private static void Send(Socket handler, String data)
+        public static void Broadcast(string msg)
         {
-            // Convert the string data to byte data using ASCII encoding.  
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
-
-            // Begin sending the data to the remote device.  
-            handler.BeginSend(byteData, 0, byteData.Length, 0,
-                new AsyncCallback(SendCallback), handler);
+            foreach (HS_SocketDataWorker hsdw in sockets){
+                hsdw.Send(msg+"<EOF>");
+            }
         }
 
-        private static void SendCallback(IAsyncResult ar)
+        public static void MessageCallback(HS_SocketDataWorker socket, string message)
         {
-            try
-            {
-                // Retrieve the socket from the state object.  
-                Socket handler = (Socket)ar.AsyncState;
 
-                // Complete sending the data to the remote device.  
-                int bytesSent = handler.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to client.", bytesSent);
+        }
 
-                //handler.Shutdown(SocketShutdown.Both);
-                //handler.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+        public static void StartGame()
+        {
+            Broadcast("Players connected. Setting up match");
+            Broadcast("Loading decks...");
+            HS_PlayerInstance p1 = new HS_PlayerInstance("nic", new HS_Avatar(), new HS_TestDeck());
+            HS_PlayerInstance p2 = new HS_PlayerInstance("mike", new HS_Avatar(), new HS_TestDeck());
+            HS_GameInstance gi = new HS_GameInstance();
+            gi.AddPlayer(p1, sockets[0]);
+            gi.AddPlayer(p2, sockets[1]);
+            Broadcast("Starting game...");
+            gi.StartGame();
         }
 
         public static int Main(String[] args)

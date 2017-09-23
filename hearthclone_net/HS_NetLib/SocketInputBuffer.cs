@@ -1,7 +1,7 @@
 ﻿using System.Net.Sockets;
 using System.Text;
 
-namespace hearthclone_net
+namespace HS_Net
 {
     public class HS_SocketInputBuffer
     {

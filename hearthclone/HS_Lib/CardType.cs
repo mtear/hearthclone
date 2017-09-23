@@ -1,11 +1,11 @@
 ﻿namespace HS_Lib
 {
-    enum HS_CardType
+    public enum HS_CardType
     {
         Creature
     }
 
-    static class HS_CardTypeUtil
+    public static class HS_CardTypeUtil
     {
         public static char GetCode(HS_CardType type)
         {

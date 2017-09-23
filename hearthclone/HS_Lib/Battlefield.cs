@@ -2,7 +2,7 @@
 
 namespace HS_Lib
 {
-    class HS_Battlefield
+    public class HS_Battlefield
     {
 
         private int max = 7;

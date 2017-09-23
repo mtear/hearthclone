@@ -2,11 +2,14 @@
 using System.Net.Sockets;
 using System.Text;
 
-namespace hearthclone_net
+namespace HS_Net
 {
     public class HS_SocketInputWorker
     {
-        private static void ReadCallback(IAsyncResult ar)
+
+        private HS_MessageCallback callback;
+
+        private void ReadCallback(IAsyncResult ar)
         {
             // Get the socket input buffer from the callback result
             HS_SocketInputBuffer state = (HS_SocketInputBuffer)ar.AsyncState;
@@ -23,6 +26,7 @@ namespace hearthclone_net
                 {
                     string message = state.PopMessage();
                     Console.WriteLine("Message : {0}", message);
+                    callback(message);
                 }
 
                 //Keep reading
@@ -31,8 +35,12 @@ namespace hearthclone_net
             }
         }
 
-        public HS_SocketInputWorker(Socket socket)
+        public delegate void HS_MessageCallback(string message);
+
+        public HS_SocketInputWorker(Socket socket, HS_MessageCallback callback)
         {
+            this.callback = callback;
+
             //Start the reader listening on the socket
             HS_SocketInputBuffer state = new HS_SocketInputBuffer(socket);
             socket.BeginReceive(state.Buffer, 0, HS_SocketInputBuffer.BufferSize, 0,

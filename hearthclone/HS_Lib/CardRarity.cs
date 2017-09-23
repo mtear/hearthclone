@@ -1,6 +1,6 @@
 ﻿namespace HS_Lib
 {
-    enum HS_CardRarity
+    public enum HS_CardRarity
     {
         Common
     }

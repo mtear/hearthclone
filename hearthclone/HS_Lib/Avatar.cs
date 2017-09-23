@@ -1,6 +1,6 @@
 ﻿namespace HS_Lib
 {
-    class HS_Avatar
+    public class HS_Avatar
     {
     }
 }

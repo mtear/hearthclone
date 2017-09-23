@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HS_GameInstance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -49,6 +50,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\hearthclone\hearthclone.csproj">
+      <Project>{abe1242a-ca31-4c37-95e9-774fa2710173}</Project>
+      <Name>hearthclone</Name>
+    </ProjectReference>
     <ProjectReference Include="..\hearthclone_net\hearthclone_net.csproj">
       <Project>{9b094d79-07dc-49c2-8d66-2543e2062b11}</Project>
       <Name>hearthclone_net</Name>

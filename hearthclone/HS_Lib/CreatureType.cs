@@ -1,6 +1,6 @@
 ﻿namespace HS_Lib
 {
-    enum HS_CreatureType
+    public enum HS_CreatureType
     {
         Beast
     }

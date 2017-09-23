@@ -1,6 +1,6 @@
 ﻿namespace HS_Lib
 {
-    abstract class HS_Deck
+    public abstract class HS_Deck
     {
         public void Draw(HS_Hand hand)
         {

@@ -2,8 +2,11 @@
 
 namespace HS_Lib
 {
-    class HS_TestDeck : HS_Deck
+    public class HS_TestDeck : HS_Deck
     {
+
+        public static System.Random rand = new System.Random();
+
         public override int Count
         {
             get { return 10; }
@@ -11,9 +14,10 @@ namespace HS_Lib
 
         protected override HS_CardInstance DrawCard()
         {
-            return new HS_CreatureInstance("wolfie", new HS_CreatureCard(1, 3, 
+            int r = rand.Next(10) + 1;
+            return new HS_CreatureInstance("Slime v" + r, new HS_CreatureCard(r, r, 
                 new List<HS_CreatureType>(new HS_CreatureType[] { HS_CreatureType.Beast }),
-                "", (char)1, "a", HS_CardRarity.Common, HS_CardType.Creature, null));
+                "", (char)r, "a", HS_CardRarity.Common, HS_CardType.Creature, null));
         }
     }
 }

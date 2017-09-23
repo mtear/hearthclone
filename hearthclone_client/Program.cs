@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
-using hearthclone_net;
+using HS_Net;
 
 namespace hearthclone_client
 {
@@ -113,7 +113,7 @@ namespace hearthclone_client
 
         private static void Receive(Socket client)
         {
-            Console.WriteLine("Being receiving data");
+            //Console.WriteLine("Being receiving data");
             try
             {
                 // Create the state object.  
@@ -144,7 +144,7 @@ namespace hearthclone_client
 
                 if (bytesRead > 0)
                 {
-                    Console.WriteLine("Recieve callback! - grabbing more data...");
+                    //Console.WriteLine("Recieve callback! - grabbing more data...");
 
                     // There might be more data, so store the data received so far.  
                     state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));

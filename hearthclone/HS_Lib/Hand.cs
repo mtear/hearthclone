@@ -2,7 +2,7 @@
 
 namespace HS_Lib
 {
-    class HS_Hand
+    public class HS_Hand
     {
 
         private List<HS_CardInstance> cards;
