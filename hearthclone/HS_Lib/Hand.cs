@@ -4,6 +4,7 @@ namespace HS_Lib
 {
     public class HS_Hand
     {
+        private static byte MAX_CARDS = 10;
 
         private List<HS_CardInstance> cards;
         public List<HS_CardInstance> Cards
@@ -22,7 +23,10 @@ namespace HS_Lib
 
         public void Add(HS_CardInstance card)
         {
-            cards.Add(card);
+            if (cards.Count < MAX_CARDS)
+            {
+                cards.Add(card);
+            }
         }
 
     }

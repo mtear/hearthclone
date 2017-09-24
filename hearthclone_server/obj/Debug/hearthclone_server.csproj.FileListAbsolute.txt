@@ -5,9 +5,3 @@ D:\pgram\hearthclone\hearthclone\hearthclone_server\obj\Debug\hearthclone_server
 D:\pgram\hearthclone\hearthclone\hearthclone_server\obj\Debug\hearthclone_server.csproj.CoreCompileInputs.cache
 D:\pgram\hearthclone\hearthclone\hearthclone_server\obj\Debug\hearthclone_server.exe
 D:\pgram\hearthclone\hearthclone\hearthclone_server\obj\Debug\hearthclone_server.pdb
-D:\pgram\hearthclone\hearthclone\hearthclone_server\bin\Debug\hearthclone_net.exe
-D:\pgram\hearthclone\hearthclone\hearthclone_server\bin\Debug\hearthclone_net.pdb
-D:\pgram\hearthclone\hearthclone\hearthclone_server\bin\Debug\hearthclone_net.exe.config
-D:\pgram\hearthclone\hearthclone\hearthclone_server\bin\Debug\hearthclone.exe
-D:\pgram\hearthclone\hearthclone\hearthclone_server\bin\Debug\hearthclone.pdb
-D:\pgram\hearthclone\hearthclone\hearthclone_server\bin\Debug\hearthclone.exe.config

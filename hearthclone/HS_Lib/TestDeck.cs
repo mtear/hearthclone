@@ -5,8 +5,6 @@ namespace HS_Lib
     public class HS_TestDeck : HS_Deck
     {
 
-        public static System.Random rand = new System.Random();
-
         public override int Count
         {
             get { return 10; }
@@ -14,10 +12,19 @@ namespace HS_Lib
 
         protected override HS_CardInstance DrawCard()
         {
-            int r = rand.Next(10) + 1;
+            byte r = 1;
+            byte a = (byte)HS_Game.RAND.Next(15);
+            if(a < 10)
+            {
+                r = (byte)(HS_Game.RAND.Next(5) + 1);
+            }
+            else
+            {
+                r = (byte)(HS_Game.RAND.Next(10) + 1);
+            }
             return new HS_CreatureInstance("Slime v" + r, new HS_CreatureCard(r, r, 
                 new List<HS_CreatureType>(new HS_CreatureType[] { HS_CreatureType.Beast }),
-                "", (char)r, "a", HS_CardRarity.Common, HS_CardType.Creature, null));
+                "", r, "a", HS_CardRarity.Common, HS_CardType.Creature, null));
         }
     }
 }

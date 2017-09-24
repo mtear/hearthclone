@@ -18,9 +18,14 @@ creature summoning should spawn from an effect not just inherently do it
 flavor flav
 Hand instance vs play instance / Redo the whole heiarchy of hand objects it's awful
 Player life to health
+no commands before game start
 
 TODAY:
-make server and client separate programs
+name acceptance
+play card
+attack
+summoning sickness
+attack resetting...
 
 ritualist
 desperado, gunslinger, lawmen, tomahawk, Jezebel

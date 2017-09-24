@@ -5,22 +5,22 @@ namespace HS_Lib
     public class HS_Battlefield
     {
 
-        private int max = 7;
+        private static byte MAX = 7;
         private List<List<HS_CreatureInstance>> fields;
-        private Dictionary<HS_PlayerInstance, char> playerFieldIndicies;
+        private Dictionary<HS_PlayerInstance, byte> playerFieldIndicies;
 
-        public char PlayerCount
+        public byte PlayerCount
         {
             get
             {
-                return (char)playerFieldIndicies.Keys.Count;
+                return (byte)playerFieldIndicies.Keys.Count;
             }
         }
 
         public HS_Battlefield()
         {
             fields = new List<List<HS_CreatureInstance>>();
-            playerFieldIndicies = new Dictionary<HS_PlayerInstance, char>();
+            playerFieldIndicies = new Dictionary<HS_PlayerInstance, byte>();
         }
 
         public void AddPlayer(HS_PlayerInstance player)
@@ -29,6 +29,15 @@ namespace HS_Lib
             {
                 playerFieldIndicies.Add(player, PlayerCount);
                 fields.Add(new List<HS_CreatureInstance>());
+            }
+        }
+
+        public void AddCreature(HS_PlayerInstance player, HS_CreatureInstance ci)
+        {
+            List<HS_CreatureInstance> field = GetField(player);
+            if(field.Count < MAX)
+            {
+                field.Add(ci);
             }
         }
 
@@ -43,7 +52,7 @@ namespace HS_Lib
             }
         }
 
-        public void Attack(HS_PlayerInstance fromPlayer, int attackerIndex, HS_PlayerInstance targetPlayer, int defenderIndex)
+        public void Attack(HS_PlayerInstance fromPlayer, sbyte attackerIndex, HS_PlayerInstance targetPlayer, sbyte defenderIndex)
         {
             List<HS_CreatureInstance> fromField = GetField(fromPlayer);
             List<HS_CreatureInstance> toField = GetField(targetPlayer);
@@ -55,14 +64,14 @@ namespace HS_Lib
             {
                 if(defenderIndex == -1)
                 {
-                    //targetPlayer.Life -= fromField[attackerIndex].CreatureStats.Power;
+                    targetPlayer.TakeDamage(fromField[attackerIndex].CreatureStats.Power);
                 }
             }
-            if(fromField[attackerIndex].CreatureStats.Health <= 0)
+            if(attackerIndex >= 0 && fromField[attackerIndex].CreatureStats.Health <= 0)
             {
                 fromField.RemoveAt(attackerIndex);
             }
-            if(toField[defenderIndex].CreatureStats.Health <= 0)
+            if(defenderIndex >= 0 && toField[defenderIndex].CreatureStats.Health <= 0)
             {
                 toField.RemoveAt(defenderIndex);
             }

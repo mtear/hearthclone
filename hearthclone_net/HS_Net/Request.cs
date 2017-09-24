@@ -41,7 +41,7 @@ namespace HS_Net
             this.command = command;
         }
 
-        public HS_Request Parse(string json)
+        public static HS_Request Parse(string json)
         {
             MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(HS_Request));

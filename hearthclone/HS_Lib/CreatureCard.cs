@@ -35,7 +35,7 @@ namespace HS_Lib
         }
 
         public HS_CreatureCard(int power, int health, List<HS_CreatureType> creatureTypes, string copy,
-            char cost, string id, HS_CardRarity rarity, HS_CardType type, string imageid)
+            byte cost, string id, HS_CardRarity rarity, HS_CardType type, string imageid)
             : base(copy, cost, id, rarity, type, imageid)
         {
             this.power = power;

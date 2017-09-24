@@ -12,7 +12,22 @@ namespace hearthclone_server
     public class AsynchronousSocketListener
     {
         private static int connections = 0;
-        private static List<HS_SocketDataWorker> sockets = new List<HS_SocketDataWorker>();
+        //private static List<HS_SocketDataWorker> sockets = new List<HS_SocketDataWorker>();
+        private static Dictionary<HS_SocketDataWorker, PlayerInfo> players = new Dictionary<HS_SocketDataWorker, PlayerInfo>();
+        private static int NUM_PLAYERS = 3;
+
+        class PlayerInfo
+        {
+            public string Name;
+            public bool Set
+            {
+                get { return Name != "UNKNOWN"; }
+            }
+            public PlayerInfo(string name)
+            {
+                this.Name = name;
+            }
+        }
 
         // Thread signal.  
         public static ManualResetEvent allDone = new ManualResetEvent(false);
@@ -47,7 +62,7 @@ namespace hearthclone_server
                     allDone.Reset();
 
                     // Start an asynchronous socket to listen for connections.  
-                    if (connections < 2)
+                    if (connections < NUM_PLAYERS)
                     {
                         listener.BeginAccept(
                             new AsyncCallback(AcceptCallback),
@@ -68,7 +83,34 @@ namespace hearthclone_server
 
         }
 
-        public static void AcceptCallback(IAsyncResult ar)
+        public static void MessageReceived(HS_SocketDataWorker sdw, string message)
+        {
+            HS_Request request = HS_Request.Parse(message.Trim());
+            Console.WriteLine(message);
+            if(request.Command == "NAMESET")
+            {
+                Console.WriteLine("CHANGING NAME");
+                players[sdw].Name = request.Name;
+            }
+
+            CheckGameStart();
+        }
+
+        public static void CheckGameStart()
+        {
+            if(connections == NUM_PLAYERS)
+            {
+                bool good = true;
+                foreach(PlayerInfo pi in players.Values)
+                {
+                    if (!pi.Set) { good = false; break; }
+                }
+
+                if (good) StartGame();
+            }
+        }
+
+            public static void AcceptCallback(IAsyncResult ar)
         {
             Console.WriteLine("New client connected");
             connections++;
@@ -80,39 +122,38 @@ namespace hearthclone_server
             Socket listener = (Socket)ar.AsyncState;
             Socket handler = listener.EndAccept(ar);
 
-            sockets.Add(new HS_SocketDataWorker(handler));
+            //sockets.Add(new HS_SocketDataWorker(handler));
+            HS_SocketDataWorker sdw = new HS_SocketDataWorker(handler);
+            sdw.SetCallback(new HS_SocketDataWorker.HS_PlayerCommandCallback(MessageReceived));
+            players.Add(sdw, new PlayerInfo("UNKNOWN"));
 
             if(connections == 1)
             {
                 Broadcast("You are the first to join the room. Please wait");
             }
-            else if(connections == 2)
-            {
-                StartGame();
-            }
         }
 
         public static void Broadcast(string msg)
         {
-            foreach (HS_SocketDataWorker hsdw in sockets){
+            foreach (HS_SocketDataWorker hsdw in players.Keys){
                 hsdw.Send(msg+"<EOF>");
             }
-        }
-
-        public static void MessageCallback(HS_SocketDataWorker socket, string message)
-        {
-
         }
 
         public static void StartGame()
         {
             Broadcast("Players connected. Setting up match");
-            Broadcast("Loading decks...");
-            HS_PlayerInstance p1 = new HS_PlayerInstance("nic", new HS_Avatar(), new HS_TestDeck());
-            HS_PlayerInstance p2 = new HS_PlayerInstance("mike", new HS_Avatar(), new HS_TestDeck());
+            //HS_PlayerInstance p1 = new HS_PlayerInstance("nic", new HS_Avatar(), new HS_TestDeck());
+            //HS_PlayerInstance p2 = new HS_PlayerInstance("mike", new HS_Avatar(), new HS_TestDeck());
+            //HS_PlayerInstance p3 = new HS_PlayerInstance("scott", new HS_Avatar(), new HS_TestDeck());
             HS_GameInstance gi = new HS_GameInstance();
-            gi.AddPlayer(p1, sockets[0]);
-            gi.AddPlayer(p2, sockets[1]);
+            //gi.AddPlayer(p1, sockets[0]);
+            //gi.AddPlayer(p2, sockets[1]);
+            //gi.AddPlayer(p3, sockets[2]);
+            foreach(HS_SocketDataWorker socket in players.Keys)
+            {
+                gi.AddPlayer(new HS_PlayerInstance(players[socket].Name, new HS_Avatar(), new HS_TestDeck()), socket);
+            }
             Broadcast("Starting game...");
             gi.StartGame();
         }

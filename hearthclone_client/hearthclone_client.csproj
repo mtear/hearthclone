@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,17 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\hearthclone_net\HS_Net\Request.cs">
+      <Link>HS_Net\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\SocketDataWorker.cs">
+      <Link>HS_Net\SocketDataWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\SocketInputBuffer.cs">
+      <Link>HS_Net\SocketInputBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\SocketInputWorker.cs">
+      <Link>HS_Net\SocketInputWorker.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\hearthclone_net\hearthclone_net.csproj">
-      <Project>{9b094d79-07dc-49c2-8d66-2543e2062b11}</Project>
-      <Name>hearthclone_net</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

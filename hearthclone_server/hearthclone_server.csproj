@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,22 +43,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\hearthclone\HS_Lib\Avatar.cs">
+      <Link>HS_Lib\Avatar.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\Battlefield.cs">
+      <Link>HS_Lib\Battlefield.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\Card.cs">
+      <Link>HS_Lib\Card.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\CardInstance.cs">
+      <Link>HS_Lib\CardInstance.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\CardRarity.cs">
+      <Link>HS_Lib\CardRarity.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\CardType.cs">
+      <Link>HS_Lib\CardType.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\CreatureCard.cs">
+      <Link>HS_Lib\CreatureCard.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\CreatureInstance.cs">
+      <Link>HS_Lib\CreatureInstance.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\CreatureType.cs">
+      <Link>HS_Lib\CreatureType.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\Deck.cs">
+      <Link>HS_Lib\Deck.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\Enchantment.cs">
+      <Link>HS_Lib\Enchantment.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\Game.cs">
+      <Link>HS_Lib\Game.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\Hand.cs">
+      <Link>HS_Lib\Hand.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\PlayerInstance.cs">
+      <Link>HS_Lib\PlayerInstance.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone\HS_Lib\TestDeck.cs">
+      <Link>HS_Lib\TestDeck.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\Request.cs">
+      <Link>HS_Net\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\SocketDataWorker.cs">
+      <Link>HS_Net\SocketDataWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\SocketInputBuffer.cs">
+      <Link>HS_Net\SocketInputBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\SocketInputWorker.cs">
+      <Link>HS_Net\SocketInputWorker.cs</Link>
+    </Compile>
     <Compile Include="HS_GameInstance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\hearthclone\hearthclone.csproj">
-      <Project>{abe1242a-ca31-4c37-95e9-774fa2710173}</Project>
-      <Name>hearthclone</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\hearthclone_net\hearthclone_net.csproj">
-      <Project>{9b094d79-07dc-49c2-8d66-2543e2062b11}</Project>
-      <Name>hearthclone_net</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

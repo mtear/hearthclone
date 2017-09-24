@@ -10,11 +10,11 @@
             set { copy = value; }
         }
 
-        protected char cost;
+        protected byte cost;
         public int Cost
         {
             get { return cost; }
-            set { cost = (char)value; }
+            set { cost = (byte)value; }
         }
 
         protected string id;
@@ -57,7 +57,7 @@
             }
         }
 
-        public HS_Card(string copy, char cost, string id, HS_CardRarity rarity, HS_CardType type, string imageid)
+        public HS_Card(string copy, byte cost, string id, HS_CardRarity rarity, HS_CardType type, string imageid)
         {
             this.copy = copy;
             this.cost = cost;

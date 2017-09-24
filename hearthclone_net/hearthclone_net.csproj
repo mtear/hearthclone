@@ -43,12 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HS_NetLib\SocketDataWorker.cs" />
-    <Compile Include="HS_NetLib\SocketInputBuffer.cs" />
-    <Compile Include="HS_NetLib\SocketInputWorker.cs" />
+    <Compile Include="HS_Net\SocketDataWorker.cs" />
+    <Compile Include="HS_Net\SocketInputBuffer.cs" />
+    <Compile Include="HS_Net\SocketInputWorker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HS_NetLib\Request.cs" />
+    <Compile Include="HS_Net\Request.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

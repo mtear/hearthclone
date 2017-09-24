@@ -63,10 +63,23 @@ namespace hearthclone_client
                 Receive(client);
 
                 String command = "";
-                while (command != "end")
+                while (command != "disconnect")
                 {
-                    Console.WriteLine("Enter command:");
                     command = Console.ReadLine();
+                    if(command == "clear")
+                    {
+                        Console.Clear(); continue;
+                    }else if(command == "status" || command == "s" || command == "")
+                    {
+                        Console.Clear();
+                        HS_Request r = new HS_Request(name, "hands");
+                        HS_Request r2 = new HS_Request(name, "fields");
+                        //HS_Request r3 = new HS_Request(name, "whoturn");
+                        //Send(client, r3.Json + "<EOF>");
+                        Send(client, r.Json + "<EOF>");
+                        Send(client, r2.Json + "<EOF>");
+                        continue;
+                    }
                     HS_Request request = new HS_Request(name, command);
                     // Send test data to the remote device.  
                     Send(client, request.Json + "<EOF>");
@@ -101,6 +114,9 @@ namespace hearthclone_client
 
                 Console.WriteLine("Socket connected to {0}",
                     client.RemoteEndPoint.ToString());
+
+                HS_Request r = new HS_Request(name, "NAMESET");
+                Send(client, r.Json+"<EOF>");
 
                 // Signal that the connection has been made.  
                 connectDone.Set();
@@ -153,7 +169,7 @@ namespace hearthclone_client
                     if (content.Contains("<EOF>"))
                     {
                         //Response receieved
-                        Console.WriteLine("Received: " + content);
+                        Console.WriteLine(content.Replace("<EOF>", ""));
                         //Listen again
                         Receive(client);
                     }
@@ -204,7 +220,7 @@ namespace hearthclone_client
 
                 // Complete sending the data to the remote device.  
                 int bytesSent = client.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to server.", bytesSent);
+                //Console.WriteLine("Sent {0} bytes to server.", bytesSent);
 
                 // Signal that all bytes have been sent.  
                 sendDone.Set();

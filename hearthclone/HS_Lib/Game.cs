@@ -5,8 +5,9 @@ namespace HS_Lib
 {
     public class HS_Game
     {
+        public static Random RAND = new Random();
 
-        private char turnindex = (char)0;
+        private byte turnindex = 0;
         private HS_Battlefield battlefield;
         public HS_Battlefield Battlefield
         {
@@ -53,8 +54,9 @@ namespace HS_Lib
             turnindex++;
             if(turnindex >= players.Count)
             {
-                turnindex = (char)0;
+                turnindex = 0;
             }
+            if (!players[turnindex].Alive) EndTurn(); //Skip dead people
             //Start the turn of the next player
             StartTurn(players[turnindex]);
         }
@@ -63,12 +65,16 @@ namespace HS_Lib
         {
             player.AddManaCrystal();
             player.ResetMana();
+            foreach(HS_CreatureInstance bi in battlefield.GetField(player))
+            {
+                bi.Refresh();
+            }
             player.Draw();
         }
 
         public void StartGame()
         {
-            turnindex = (char)new Random().Next(players.Count);
+            turnindex = (byte)HS_Game.RAND.Next(players.Count);
             DrawOpeningHands();
             StartTurn(players[turnindex]);
         }

@@ -13,6 +13,19 @@ namespace HS_Lib
         private bool frozen;
         private bool stealthed;
 
+        private bool firstTurn = true;
+        private bool alreadyAttacked = false;
+
+        public bool CanAttack
+        {
+            get { return !alreadyAttacked && !firstTurn && !frozen; }
+        }
+
+        public bool AlreadyAttacked
+        {
+            set { alreadyAttacked = true; }
+        }
+
         public HS_CreatureCard CreatureStats
         {
             get { return Stats.CreatureCard; }
@@ -40,6 +53,12 @@ namespace HS_Lib
             shielded = false;
             frozen = false;
             stealthed = false;
+        }
+
+        public void Refresh()
+        {
+            firstTurn = false;
+            alreadyAttacked = false;
         }
 
     }

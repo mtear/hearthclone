@@ -56,9 +56,9 @@ namespace hearthclone
 
         public static void Attack(HS_Game g, HS_PlayerInstance player, string[] args)
         {
-            int playerIndex = Convert.ToInt32(args[1]);
-            int fromIndex = Convert.ToInt32(args[2]);
-            int toIndex = Convert.ToInt32(args[3]);
+            sbyte playerIndex = Convert.ToSByte(args[1]);
+            sbyte fromIndex = Convert.ToSByte(args[2]);
+            sbyte toIndex = Convert.ToSByte(args[3]);
             g.Battlefield.Attack(g.CurrentPlayer, fromIndex, g.CurrentPlayers[playerIndex], toIndex);
         }
 
