@@ -7,7 +7,7 @@ namespace HS_Net
     {
 
         public readonly static int BufferSize = 1024;
-        public readonly static string EOF = "<EOF>";
+        public readonly static string EOF = "\0\0\0\0\0";
 
         private Socket socket = null;
         public Socket TargetSocket

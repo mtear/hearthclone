@@ -9,6 +9,12 @@ namespace HS_Net
 
         HS_SocketInputWorker inputWorker;
         Socket socket;
+        private string symkey = null;
+        public String Symkey
+        {
+            get { return symkey; }
+            set { symkey = value; }
+        }
 
         public delegate void HS_PlayerCommandCallback(HS_SocketDataWorker sdw, string message);
 
@@ -22,13 +28,24 @@ namespace HS_Net
 
         public void Send(string data)
         {
-            SocketSend(socket, data);
+            SocketSend(socket, data, symkey);
         }
 
-        private static void SocketSend(Socket handler, String data)
+        private static void SocketSend(Socket handler, String data, string symkey)
         {
-            // Convert the string data to byte data using ASCII encoding.  
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
+            //Encrypt
+            if(symkey != null)
+            {
+                data = Convert.ToBase64String(TDESHandler.Encrypt(symkey, data)) + HS_SocketInputBuffer.EOF;
+            }
+
+            Console.WriteLine(data);
+
+            //Add message ending
+            data += HS_SocketInputBuffer.EOF;
+
+            // Convert the string data to byte data using UTF8 encoding.  
+            byte[] byteData = Encoding.UTF8.GetBytes(data);
 
             // Begin sending the data to the remote device.  
             handler.BeginSend(byteData, 0, byteData.Length, 0,

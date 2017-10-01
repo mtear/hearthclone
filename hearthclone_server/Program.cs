@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Collections.Generic;
 using HS_Lib;
+using hearthclone;
 
 namespace hearthclone_server
 {
@@ -12,21 +13,13 @@ namespace hearthclone_server
     public class AsynchronousSocketListener
     {
         private static int connections = 0;
-        //private static List<HS_SocketDataWorker> sockets = new List<HS_SocketDataWorker>();
-        private static Dictionary<HS_SocketDataWorker, PlayerInfo> players = new Dictionary<HS_SocketDataWorker, PlayerInfo>();
+        private static Dictionary<HS_SocketDataWorker, ClientInfo> clients = new Dictionary<HS_SocketDataWorker, ClientInfo>();
         private static int NUM_PLAYERS = 3;
 
-        class PlayerInfo
+        class ClientInfo
         {
-            public string Name;
-            public bool Set
-            {
-                get { return Name != "UNKNOWN"; }
-            }
-            public PlayerInfo(string name)
-            {
-                this.Name = name;
-            }
+            public string userid;
+            public string symkey = null;
         }
 
         // Thread signal.  
@@ -43,7 +36,7 @@ namespace hearthclone_server
 
             IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 1121);
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, Settings.Current.GameServerPort);
 
             // Create a TCP/IP socket.  
             Socket listener = new Socket(AddressFamily.InterNetwork,
@@ -89,8 +82,15 @@ namespace hearthclone_server
             Console.WriteLine(message);
             if(request.Command == "NAMESET")
             {
-                Console.WriteLine("CHANGING NAME");
-                players[sdw].Name = request.Name;
+                clients[sdw].userid = request.Name;
+                //TODO make this async
+                string stringResponse = NetUtil.PostSynchro(Settings.Current.InternalTokenLookupUrl,
+                    new Dictionary<string, string> { { "code", Settings.Current.InternalApiAccessCode }, { "userid", request.Name } });
+                ServerResponse response = ServerResponse.Parse(stringResponse);
+                clients[sdw].symkey = response.Data1;
+                Console.WriteLine("Sym token: " + response.Data1);
+                sdw.Symkey = response.Data1;
+                sdw.Send("You did it");          
             }
 
             CheckGameStart();
@@ -101,9 +101,9 @@ namespace hearthclone_server
             if(connections == NUM_PLAYERS)
             {
                 bool good = true;
-                foreach(PlayerInfo pi in players.Values)
+                foreach(ClientInfo pi in clients.Values)
                 {
-                    if (!pi.Set) { good = false; break; }
+                    if (pi.symkey != null) { good = false; break; }
                 }
 
                 if (good) StartGame();
@@ -125,7 +125,7 @@ namespace hearthclone_server
             //sockets.Add(new HS_SocketDataWorker(handler));
             HS_SocketDataWorker sdw = new HS_SocketDataWorker(handler);
             sdw.SetCallback(new HS_SocketDataWorker.HS_PlayerCommandCallback(MessageReceived));
-            players.Add(sdw, new PlayerInfo("UNKNOWN"));
+            clients.Add(sdw, new ClientInfo());
 
             if(connections == 1)
             {
@@ -135,8 +135,8 @@ namespace hearthclone_server
 
         public static void Broadcast(string msg)
         {
-            foreach (HS_SocketDataWorker hsdw in players.Keys){
-                hsdw.Send(msg+"<EOF>");
+            foreach (HS_SocketDataWorker hsdw in clients.Keys){
+                //hsdw.Send(msg);
             }
         }
 
@@ -150,9 +150,9 @@ namespace hearthclone_server
             //gi.AddPlayer(p1, sockets[0]);
             //gi.AddPlayer(p2, sockets[1]);
             //gi.AddPlayer(p3, sockets[2]);
-            foreach(HS_SocketDataWorker socket in players.Keys)
+            foreach(HS_SocketDataWorker socket in clients.Keys)
             {
-                gi.AddPlayer(new HS_PlayerInstance(players[socket].Name, new HS_Avatar(), new HS_TestDeck()), socket);
+                gi.AddPlayer(new HS_PlayerInstance(clients[socket].userid, new HS_Avatar(), new HS_TestDeck()), socket);
             }
             Broadcast("Starting game...");
             gi.StartGame();

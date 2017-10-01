@@ -94,7 +94,7 @@ namespace hearthclone_server
                 case "whoturn": response = WhoTurn(); break;
                 default: response = "Unknown command"; break;
             }
-            sdw.Send(response+"<EOF>");
+            sdw.Send(response);
             CheckDeadPlayers();
         }
 
@@ -152,7 +152,7 @@ namespace hearthclone_server
         {
             foreach (HS_PlayerInstance player in players)
             {
-                sockets[player].Send("****** " +message + " ******<EOF>");
+                sockets[player].Send("****** " +message + " ******");
             }
         }
 

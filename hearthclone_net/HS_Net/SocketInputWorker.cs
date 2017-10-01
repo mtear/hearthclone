@@ -11,6 +11,8 @@ namespace HS_Net
 
         private void ReadCallback(IAsyncResult ar)
         {
+            Console.WriteLine("Reading data");
+
             // Get the socket input buffer from the callback result
             HS_SocketInputBuffer state = (HS_SocketInputBuffer)ar.AsyncState;
             Socket socket = state.TargetSocket;
@@ -19,13 +21,13 @@ namespace HS_Net
             int bytesRead = socket.EndReceive(ar);
             if (bytesRead > 0)
             { 
-                state.AppendData(Encoding.ASCII.GetString(state.Buffer, 0, bytesRead));
+                state.AppendData(Encoding.UTF8.GetString(state.Buffer, 0, bytesRead));
 
                 // Pop a message if one is available 
                 if (state.HasMessage)
                 {
                     string message = state.PopMessage();
-                    Console.WriteLine("Message : {0}", message);
+                    Console.WriteLine("Message: {0}", message);
                     callback(message);
                 }
 

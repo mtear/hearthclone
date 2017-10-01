@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9B094D79-07DC-49C2-8D66-2543E2062B11}</ProjectGuid>
+    <ProjectGuid>{55A2075E-A9A7-4D9F-9312-878BC0F74EF9}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>hearthclone_net</RootNamespace>
-    <AssemblyName>hearthclone_net</AssemblyName>
+    <RootNamespace>hearthclone_loginserver</RootNamespace>
+    <AssemblyName>hearthclone_loginserver</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,19 +43,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HS_Net\AuthenticationServerLoginResponse.cs" />
-    <Compile Include="HS_Net\NetUtil.cs" />
-    <Compile Include="HS_Net\RSAHandler.cs" />
-    <Compile Include="HS_Net\SocketDataWorker.cs" />
-    <Compile Include="HS_Net\SocketInputBuffer.cs" />
-    <Compile Include="HS_Net\SocketInputWorker.cs" />
-    <Compile Include="HS_Net\TDESHandler.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="..\hearthclone\Settings.cs">
+      <Link>Settings.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\AuthenticationServerLoginResponse.cs">
+      <Link>HS_Net\AuthenticationServerLoginResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\NetUtil.cs">
+      <Link>HS_Net\NetUtil.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\Request.cs">
+      <Link>HS_Net\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\RSAHandler.cs">
+      <Link>HS_Net\RSAHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\SocketDataWorker.cs">
+      <Link>HS_Net\SocketDataWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\SocketInputBuffer.cs">
+      <Link>HS_Net\SocketInputBuffer.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\SocketInputWorker.cs">
+      <Link>HS_Net\SocketInputWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\TDESHandler.cs">
+      <Link>HS_Net\TDESHandler.cs</Link>
+    </Compile>
+    <Compile Include="LoginRequest.cs" />
+    <Compile Include="LoginServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HS_Net\Request.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

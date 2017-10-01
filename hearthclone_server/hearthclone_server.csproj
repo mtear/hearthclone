@@ -88,8 +88,20 @@
     <Compile Include="..\hearthclone\HS_Lib\TestDeck.cs">
       <Link>HS_Lib\TestDeck.cs</Link>
     </Compile>
+    <Compile Include="..\hearthclone\Settings.cs">
+      <Link>Settings.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\AuthenticationServerLoginResponse.cs">
+      <Link>HS_Net\AuthenticationServerLoginResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\NetUtil.cs">
+      <Link>HS_Net\NetUtil.cs</Link>
+    </Compile>
     <Compile Include="..\hearthclone_net\HS_Net\Request.cs">
       <Link>HS_Net\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\RSAHandler.cs">
+      <Link>HS_Net\RSAHandler.cs</Link>
     </Compile>
     <Compile Include="..\hearthclone_net\HS_Net\SocketDataWorker.cs">
       <Link>HS_Net\SocketDataWorker.cs</Link>
@@ -99,6 +111,9 @@
     </Compile>
     <Compile Include="..\hearthclone_net\HS_Net\SocketInputWorker.cs">
       <Link>HS_Net\SocketInputWorker.cs</Link>
+    </Compile>
+    <Compile Include="..\hearthclone_net\HS_Net\TDESHandler.cs">
+      <Link>HS_Net\TDESHandler.cs</Link>
     </Compile>
     <Compile Include="HS_GameInstance.cs" />
     <Compile Include="Program.cs" />
