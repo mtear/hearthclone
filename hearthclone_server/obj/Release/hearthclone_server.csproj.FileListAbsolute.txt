@@ -1,6 +1,0 @@
-D:\pgram\hearthclone\hearthclone\hearthclone_server\bin\Release\hearthclone_server.exe.config
-D:\pgram\hearthclone\hearthclone\hearthclone_server\bin\Release\hearthclone_server.exe
-D:\pgram\hearthclone\hearthclone\hearthclone_server\bin\Release\hearthclone_server.pdb
-D:\pgram\hearthclone\hearthclone\hearthclone_server\obj\Release\hearthclone_server.csproj.CoreCompileInputs.cache
-D:\pgram\hearthclone\hearthclone\hearthclone_server\obj\Release\hearthclone_server.exe
-D:\pgram\hearthclone\hearthclone\hearthclone_server\obj\Release\hearthclone_server.pdb

@@ -48,6 +48,8 @@ local.properties
 x64/
 build/
 [Bb]in/
+hearthclone_server/bin/
+hearthclone_server/obj/
 [Oo]bj/
 
 # MSTest test Results

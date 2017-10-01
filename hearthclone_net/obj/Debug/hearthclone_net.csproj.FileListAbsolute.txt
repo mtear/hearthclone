@@ -1,7 +1,0 @@
-D:\pgram\hearthclone\hearthclone\hearthclone_net\bin\Debug\hearthclone_net.exe.config
-D:\pgram\hearthclone\hearthclone\hearthclone_net\bin\Debug\hearthclone_net.exe
-D:\pgram\hearthclone\hearthclone\hearthclone_net\bin\Debug\hearthclone_net.pdb
-D:\pgram\hearthclone\hearthclone\hearthclone_net\obj\Debug\hearthclone_net.csproj.CoreCompileInputs.cache
-D:\pgram\hearthclone\hearthclone\hearthclone_net\obj\Debug\hearthclone_net.exe
-D:\pgram\hearthclone\hearthclone\hearthclone_net\obj\Debug\hearthclone_net.pdb
-D:\pgram\hearthclone\hearthclone\hearthclone_net\obj\Debug\hearthclone_net.csprojResolveAssemblyReference.cache
