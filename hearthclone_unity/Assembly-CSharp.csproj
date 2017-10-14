@@ -47,7 +47,18 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\ApiBridge.cs" />
+     <Compile Include="Assets\AuthenticationServerLoginResponse.cs" />
      <Compile Include="Assets\CardDragDrop.cs" />
+     <Compile Include="Assets\LoginRequest.cs" />
+     <Compile Include="Assets\RSAHandler.cs" />
+     <Compile Include="Assets\Request.cs" />
+     <Compile Include="Assets\Settings.cs" />
+     <Compile Include="Assets\SocketDataWorker.cs" />
+     <Compile Include="Assets\SocketInputBuffer.cs" />
+     <Compile Include="Assets\SocketInputWorker.cs" />
+     <Compile Include="Assets\TDESHandler.cs" />
+     <None Include="Assets\Resources\pub.txt" />
+     <None Include="Assets\Resources\settings.txt" />
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
  </Reference>

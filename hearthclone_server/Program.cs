@@ -16,6 +16,18 @@ namespace hearthclone_server
         private static Dictionary<HS_SocketDataWorker, ClientInfo> clients = new Dictionary<HS_SocketDataWorker, ClientInfo>();
         private static int NUM_PLAYERS = 3;
 
+        private static Queue<HS_SocketDataWorker> legacy2PlayerQueue = new Queue<HS_SocketDataWorker>();
+
+        private static bool DEBUG = true;
+
+        static void Log(string msg)
+        {
+            if (DEBUG)
+            {
+                Console.WriteLine(msg);
+            }
+        }
+
         class ClientInfo
         {
             public string userid;
@@ -47,7 +59,7 @@ namespace hearthclone_server
             {
                 listener.Bind(localEndPoint);
                 listener.Listen(100);
-                Console.WriteLine("Server started");
+                Log("Server started");
 
                 while (true)
                 {
@@ -68,29 +80,35 @@ namespace hearthclone_server
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Log(e.ToString());
             }
 
-            Console.WriteLine("\nPress ENTER to continue...");
+            Log("\nPress ENTER to continue...");
             Console.Read();
 
         }
 
         public static void MessageReceived(HS_SocketDataWorker sdw, string message)
         {
-            HS_Request request = HS_Request.Parse(message.Trim());
-            Console.WriteLine(message);
-            if(request.Command == "NAMESET")
+            JsonDataMessage request = JsonDataMessage.Parse(message.Trim());
+            Log(message);
+            if(request.Data1 == "login")
             {
-                clients[sdw].userid = request.Name;
+                clients[sdw].userid = request.Data2;
                 //TODO make this async
+                Log("API call");
                 string stringResponse = NetUtil.PostSynchro(Settings.Current.InternalTokenLookupUrl,
-                    new Dictionary<string, string> { { "code", Settings.Current.InternalApiAccessCode }, { "userid", request.Name } });
+                    new Dictionary<string, string> { { "code", Settings.Current.InternalApiAccessCode }, { "userid", request.Data2 } });
+                Log("Response: " + stringResponse);
                 ServerResponse response = ServerResponse.Parse(stringResponse);
                 clients[sdw].symkey = response.Data1;
-                Console.WriteLine("Sym token: " + response.Data1);
+                Log("Sym token: " + response.Data1);
                 sdw.Symkey = response.Data1;
-                sdw.Send("You did it");          
+
+                JsonDataMessage readyRequest = new JsonDataMessage("ready");
+                Log("User joined, sending ready message: " + readyRequest.Json);
+                sdw.Send(readyRequest.Json);
+                legacy2PlayerQueue.Enqueue(sdw);
             }
 
             CheckGameStart();
@@ -98,21 +116,17 @@ namespace hearthclone_server
 
         public static void CheckGameStart()
         {
-            if(connections == NUM_PLAYERS)
+            if(legacy2PlayerQueue.Count == 2)
             {
-                bool good = true;
-                foreach(ClientInfo pi in clients.Values)
-                {
-                    if (pi.symkey != null) { good = false; break; }
-                }
-
-                if (good) StartGame();
+                HS_SocketDataWorker p1 = legacy2PlayerQueue.Dequeue();
+                HS_SocketDataWorker p2 = legacy2PlayerQueue.Dequeue();
+                StartGame(p1, p2);
             }
         }
 
-            public static void AcceptCallback(IAsyncResult ar)
+        public static void AcceptCallback(IAsyncResult ar)
         {
-            Console.WriteLine("New client connected");
+            Log("New client connected");
             connections++;
 
             // Signal the main thread to continue.  
@@ -126,13 +140,8 @@ namespace hearthclone_server
             HS_SocketDataWorker sdw = new HS_SocketDataWorker(handler);
             sdw.SetCallback(new HS_SocketDataWorker.HS_PlayerCommandCallback(MessageReceived));
             clients.Add(sdw, new ClientInfo());
-
-            if(connections == 1)
-            {
-                Broadcast("You are the first to join the room. Please wait");
-            }
         }
-
+        
         public static void Broadcast(string msg)
         {
             foreach (HS_SocketDataWorker hsdw in clients.Keys){
@@ -140,19 +149,14 @@ namespace hearthclone_server
             }
         }
 
-        public static void StartGame()
+        public static void StartGame(params HS_SocketDataWorker[] players)
         {
             Broadcast("Players connected. Setting up match");
-            //HS_PlayerInstance p1 = new HS_PlayerInstance("nic", new HS_Avatar(), new HS_TestDeck());
-            //HS_PlayerInstance p2 = new HS_PlayerInstance("mike", new HS_Avatar(), new HS_TestDeck());
-            //HS_PlayerInstance p3 = new HS_PlayerInstance("scott", new HS_Avatar(), new HS_TestDeck());
             HS_GameInstance gi = new HS_GameInstance();
-            //gi.AddPlayer(p1, sockets[0]);
-            //gi.AddPlayer(p2, sockets[1]);
-            //gi.AddPlayer(p3, sockets[2]);
-            foreach(HS_SocketDataWorker socket in clients.Keys)
+            foreach(HS_SocketDataWorker socket in players)
             {
                 gi.AddPlayer(new HS_PlayerInstance(clients[socket].userid, new HS_Avatar(), new HS_TestDeck()), socket);
+                clients.Remove(socket); //TODO is this right?
             }
             Broadcast("Starting game...");
             gi.StartGame();

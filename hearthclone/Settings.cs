@@ -35,7 +35,7 @@ namespace hearthclone
 
         public string InternalTokenLookupUrl
         {
-            get { return settings["internal_api_access_code"]; }
+            get { return settings["internal_token_lookup_url"]; }
         }
 
         public Settings()

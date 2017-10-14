@@ -68,11 +68,11 @@ namespace hearthclone_server
             if (!gameon) return;
             HS_PlayerInstance callingPlayer = playerInstances[sdw];
 
-            HS_Request request = HS_Request.Parse(message.Trim());
-            string query = request.Command;
-            if(query == "NAMESET")
+            JsonDataMessage request = JsonDataMessage.Parse(message.Trim());
+            string query = request.Data1;
+            if(query == "login")
             {
-                names[callingPlayer] = request.Name;
+                names[callingPlayer] = request.Data2;
             }
             int spaceindex = query.IndexOf(' ');
             string q = (spaceindex > 0) ? query.Substring(0, spaceindex) : query;

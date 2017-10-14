@@ -1,0 +1,10 @@
+server_url polybellum.com
+
+#port settings
+game_server_port 1121
+login_server_port 1122
+
+#internal api
+internal_api_access_code ilikeseaturtles
+internal_login_url http://www.polybellum.com/internalLogin.php
+internal_token_lookup_url http://www.polybellum.com/internalTokenLookup.php

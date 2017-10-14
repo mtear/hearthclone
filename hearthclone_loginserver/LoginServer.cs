@@ -11,8 +11,18 @@ namespace hearthclone_loginserver
     class LoginServer
     {
 
+        private static bool DEBUG = true;
+
         private static string private_key;
         static int port = Settings.Current.LoginServerPort;
+
+        static void Log(string msg)
+        {
+            if (DEBUG)
+            {
+                Console.WriteLine(msg);
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -50,7 +60,7 @@ namespace hearthclone_loginserver
             {
                 listener.Bind(localEndPoint);
                 listener.Listen(100);
-                Console.WriteLine("Server started");
+                Log("Server started");
 
                 while (true)
                 {
@@ -69,17 +79,17 @@ namespace hearthclone_loginserver
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Log(e.ToString());
             }
 
-            Console.WriteLine("\nPress ENTER to continue...");
+            Log("\nPress ENTER to continue...");
             Console.Read();
 
         }
 
         static void AcceptCallback(IAsyncResult ar)
         {
-            Console.WriteLine("New client connected");
+            Log("New client connected");
 
             // Signal the main thread to continue.  
             allDone.Set();
@@ -97,6 +107,7 @@ namespace hearthclone_loginserver
             //Decrypt
             string json = RSAHandler.Decrypt(private_key, message);
             LoginRequest request = LoginRequest.Parse(json);
+            Console.WriteLine(json);
 
             //Check login
             //TODO make this async
@@ -105,14 +116,14 @@ namespace hearthclone_loginserver
                 { { "code", Settings.Current.InternalApiAccessCode }, {"userid",request.Username },
                     { "password", request.Password }, {"key", request.Key } });
             ServerResponse response = ServerResponse.Parse(stringResponse);
-            Console.WriteLine(stringResponse);
+            Log(stringResponse);
 
             if(response != null)
             {
                 if(response.Result == "success")
                 {
-                    Console.WriteLine("success sending back");
-                    string sec = Convert.ToBase64String(TDESHandler.Encrypt(request.Key, "turtle turtle"));
+                    Log("success sending back");
+                    string sec = Convert.ToBase64String(TDESHandler.Encrypt(request.Key, stringResponse));
                     sdw.Send(sec);
                 }else
                 {

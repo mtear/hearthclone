@@ -40,7 +40,8 @@ namespace hearthclone_client
         static string skey = "";
 
         // The port number for the remote device.  
-        private const int port;
+        private static int loginport;
+        private static int gameport;
 
         // ManualResetEvent instances signal completion.  
         private static ManualResetEvent connectDone =
@@ -53,6 +54,24 @@ namespace hearthclone_client
         // The response from the remote device.  
         private static String response = String.Empty;
 
+        private static void StartLogin()
+        {
+            IPHostEntry ipHostInfo = Dns.Resolve(Settings.Current.ServerUrl);
+            IPAddress ipAddress = ipHostInfo.AddressList[0];
+            IPEndPoint remoteEP = new IPEndPoint(ipAddress, loginport);
+
+            // Create a TCP/IP socket.  
+            Socket client = new Socket(AddressFamily.InterNetwork,
+                SocketType.Stream, ProtocolType.Tcp);
+
+            // Connect to the remote endpoint.  
+            client.BeginConnect(remoteEP,
+                new AsyncCallback(ConnectCallback), client);
+            connectDone.WaitOne();
+
+            Receive(client);
+        }
+
         private static void StartClient()
         {
             // Connect to a remote device.  
@@ -63,7 +82,7 @@ namespace hearthclone_client
                 // remote device is "host.contoso.com".  
                 IPHostEntry ipHostInfo = Dns.Resolve(Settings.Current.ServerUrl);
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress, gameport);
 
                 // Create a TCP/IP socket.  
                 Socket client = new Socket(AddressFamily.InterNetwork,
@@ -86,15 +105,15 @@ namespace hearthclone_client
                     }else if(command == "status" || command == "s" || command == "")
                     {
                         Console.Clear();
-                        HS_Request r = new HS_Request(name, "hands");
-                        HS_Request r2 = new HS_Request(name, "fields");
+                        JsonDataMessage r = new JsonDataMessage(name, "hands");
+                        JsonDataMessage r2 = new JsonDataMessage(name, "fields");
                         //HS_Request r3 = new HS_Request(name, "whoturn");
                         //Send(client, r3.Json);
                         Send(client, r.Json);
                         Send(client, r2.Json);
                         continue;
                     }
-                    HS_Request request = new HS_Request(name, command);
+                    JsonDataMessage request = new JsonDataMessage(name, command);
                     // Send test data to the remote device.  
                     Send(client, request.Json);
                     //sendDone.WaitOne();
@@ -134,7 +153,7 @@ namespace hearthclone_client
 
                 string symkey = GenerateSymKey();
                 skey = symkey;
-                LoginRequest lr = new LoginRequest("mtear", "ashton", symkey);
+                LoginRequest lr = new LoginRequest("", "", symkey);
                 string e = RSAHandler.Encrypt(public_key, lr.Json);
                 Console.WriteLine("Sending data");
                 Send(client, e);
@@ -263,7 +282,8 @@ namespace hearthclone_client
 
         public static int Main(String[] args)
         {
-            port = Settings.Current.LoginServerPort;
+            loginport = Settings.Current.LoginServerPort;
+            gameport = Settings.Current.GameServerPort;
 
             //while (AsynchronousClient.name.Trim() == "")
             //{
@@ -308,7 +328,7 @@ namespace hearthclone_client
             File.WriteAllText("priv.key", c[1]);*/
 
             public_key = File.ReadAllText("pub.key");
-            StartClient();
+            StartLogin();
             Console.Read();
             return 0;
         }

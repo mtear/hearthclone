@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hearthclone_net", "hearthcl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hearthclone_loginserver", "hearthclone_loginserver\hearthclone_loginserver.csproj", "{55A2075E-A9A7-4D9F-9312-878BC0F74EF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hearthclone_updater", "hearthclone_updater\hearthclone_updater.csproj", "{89067B4A-CCD4-48C4-844D-D2EDE14FAA63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hearthclone_launcher", "hearthclone_launcher\hearthclone_launcher.csproj", "{7D397939-41EE-4E13-8961-DE771187DAF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{55A2075E-A9A7-4D9F-9312-878BC0F74EF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55A2075E-A9A7-4D9F-9312-878BC0F74EF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55A2075E-A9A7-4D9F-9312-878BC0F74EF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89067B4A-CCD4-48C4-844D-D2EDE14FAA63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89067B4A-CCD4-48C4-844D-D2EDE14FAA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89067B4A-CCD4-48C4-844D-D2EDE14FAA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89067B4A-CCD4-48C4-844D-D2EDE14FAA63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D397939-41EE-4E13-8961-DE771187DAF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D397939-41EE-4E13-8961-DE771187DAF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D397939-41EE-4E13-8961-DE771187DAF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D397939-41EE-4E13-8961-DE771187DAF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
